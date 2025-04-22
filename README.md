@@ -1,66 +1,50 @@
-# Reto Técnico: Procesamiento de Transacciones Bancarias (CLI)
+## Introducción
+Este proyecto implementa un **CLI en Ruby** para procesar un archivo CSV con transacciones bancarias y generar un reporte con:
 
-## Objetivo:
+- **Balance Final**: suma de montos de créditos menos débitos.
+- **Transacción de Mayor Monto**: ID y monto de la transacción más alta.
+- **Conteo de Transacciones**: número de transacciones de cada tipo (Crédito, Débito).
 
-Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CSV con transacciones bancarias y genere un reporte que incluya:
 
-- **Balance Final:**  
-  Suma de los montos de las transacciones de tipo "Crédito" menos la suma de los montos de las transacciones de tipo "Débito".
+## Instrucciones de Ejecución
 
-- **Transacción de Mayor Monto:**  
-  Identificar el ID y el monto de la transacción con el valor más alto.
-
-- **Conteo de Transacciones:**  
-  Número total de transacciones para cada tipo ("Crédito" y "Débito").
-
----
-
-## Instrucciones
-
-1. **Repositorio Base:**  
-   Clona o haz un fork del repositorio base disponible en:  
-   `https://github.com/codeableorg/interbank-academy-25`
-
-2. **Entrada de Datos:**  
-   La aplicación deberá leer un archivo CSV. Ejemplo de contenido:
-
+1. **Instalar la gema necesaria**
    ```
-   id,tipo,monto
-   1,Crédito,100.00
-   2,Débito,50.00
-   3,Crédito,200.00
-   4,Débito,75.00
-   5,Crédito,150.00
+   gem install smarter_csv (mejor opcion que 'csv' gema)
+   ```
+2. **Dar permisos de ejecución al script**
+   ```
+   chmod +x bin/transaction_report.rb
+   ```
+3. **Ejecutar el reporte**
+   ```
+   ruby bin/transaction_report.rb data.csv
    ```
 
-3. **Salida del Programa:**  
-   La aplicación debe mostrar el reporte final en la terminal.  
-   Ejemplo de salida:
 
-   ```
-   Reporte de Transacciones
-   ---------------------------------------------
-   Balance Final: 325.00
-   Transacción de Mayor Monto: ID 3 - 200.00
-   Conteo de Transacciones: Crédito: 3 Débito: 2
-   ```
+## Enfoque y Solución
+Se siguieron principios de diseñño como responsabilidad única y código modular para facilitar pruebas , escalabilidad y mantenimiento.
 
-4. **Lenguaje de Programación:**  
-   Utiliza el lenguaje de tu preferencia. Opciones recomendadas:
+- **Lectura de datos**: Se utiliza `SmarterCSV` para procesar el archivo CSV.
+- **Transformación**: Cada fila se convierte en una instancia de la clase `Transaction`.
+- **Análisis**: La clase `TransactionAnalyzer` calcula el balance final, la mayor transacción y hace un conteo de los tipos de transacciones.
+- **Reporte**: `ReportFormatter`Imprime el resultado final en la consola.
+- **Orquestación**: `ReportRunner` Es el objeto orquestador conecta cada clase.
 
-   - Python
-   - Java
-   - C#
-   - JavaScript (Node.js)
 
-5. **README del Proyecto:**  
-   Incluye un archivo `README.md` con la siguiente estructura:
 
-   - **Introducción:** Breve descripción del reto y su propósito.
-   - **Instrucciones de Ejecución:** Cómo instalar dependencias y ejecutar la aplicación.
-   - **Enfoque y Solución:** Lógica implementada y decisiones de diseño.
-   - **Estructura del Proyecto:** Archivos y carpetas principales.
+## Estructura del Proyecto
 
-6. **Documentación y Calidad del Código:**
-   - Código bien documentado y fácil de leer.
-   - Comentarios explicando pasos clave y lógica del programa.
+```
+interbank-academy-25/
+├── bin/
+│   └── transaction_report.rb   # Script ejecutable para iniciar el CLI
+├── lib/
+│   ├── csv_transaction_reader.rb  # Lectura y parseo de CSV
+│   ├── transaction_analyzer.rb    # Lógica de cálculo de métricas
+│   ├── report_formatter.rb        # Formato e impresión del reporte
+│   ├── report_runner.rb           # Orquestador del flujo CLI
+│   └── transaction.rb             # Modelo Transaction
+├── data.csv                    # Archivo de ejemplo con transacciones
+└── README.md                   # Documentación del proyecto
+```
