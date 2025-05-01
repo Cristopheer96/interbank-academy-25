@@ -4,7 +4,7 @@ require_relative '../lib/report_runner'
 
 # script executable
 if ARGV.empty?
-  puts "Se debe señalar la ruta relativa del csv de esta maneraa : #{$PROGRAM_NAME} <path_to_csv>"
+  puts "Se debe señalar la ruta relativa del csv de esta maneraa : 'ruby #{$PROGRAM_NAME} <path_to_csv>'"
   exit 1
 end
 
